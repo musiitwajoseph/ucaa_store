@@ -61,6 +61,27 @@ return [
 
     'providers' => [
         'users' => [
+            'driver' => 'ldap',
+            'model' => LdapRecord\Models\ActiveDirectory\User::class,
+            'rules' => [],
+            'database' => [
+                'model' => App\Models\User::class,
+                'sync_passwords' => env('LDAP_PASSWORD_SYNC', false),
+                'sync_attributes' => [
+                    'name' => 'cn',
+                    'first_name' => 'givenname',
+                    'last_name' => 'sn',
+                    'email' => 'mail',
+                    'username' => 'samaccountname',
+                ],
+                'sync_existing' => [
+                    'email' => 'mail',
+                ],
+            ],
+        ],
+
+        // Fallback for local users
+        'users-local' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],

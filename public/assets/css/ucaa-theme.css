@@ -1,0 +1,436 @@
+/* 
+ * Uganda Civil Aviation Authority (UCAA) Theme
+ * Primary Colors: Blue (#003DA5), Yellow (#FFCD00), Red (#E30613)
+ * Based on Uganda national flag colors
+ */
+
+:root {
+    /* UCAA Primary Colors */
+    --ucaa-blue: #003DA5;
+    --ucaa-yellow: #FFCD00;
+    --ucaa-red: #E30613;
+    --ucaa-black: #000000;
+    
+    /* Shades */
+    --ucaa-blue-dark: #002770;
+    --ucaa-blue-light: #1a5dc4;
+    --ucaa-yellow-dark: #d9ae00;
+    --ucaa-yellow-light: #ffdb4d;
+    
+    /* Override Bootstrap primary colors */
+    --bs-primary: #003DA5;
+    --bs-primary-rgb: 0, 61, 165;
+}
+
+/* Global Font Size Reduction */
+body {
+    font-size: 0.8125rem !important;
+}
+
+h1 { font-size: 1.5rem !important; }
+h2 { font-size: 1.25rem !important; }
+h3 { font-size: 1.125rem !important; }
+h4 { font-size: 1rem !important; }
+h5 { font-size: 0.875rem !important; }
+h6 { font-size: 0.8125rem !important; }
+
+.page-title {
+    font-size: 1.125rem !important;
+}
+
+.card-header h5 {
+    font-size: 0.875rem !important;
+}
+
+.btn {
+    font-size: 0.75rem !important;
+    padding: 0.375rem 0.75rem !important;
+}
+
+.form-label {
+    font-size: 0.75rem !important;
+}
+
+.form-control {
+    font-size: 0.75rem !important;
+    padding: 0.375rem 0.75rem !important;
+}
+
+.navbar-nav-link {
+    font-size: 0.75rem !important;
+}
+
+.breadcrumb {
+    font-size: 0.75rem !important;
+}
+
+p, .text-muted {
+    font-size: 0.75rem !important;
+}
+
+.alert {
+    font-size: 0.75rem !important;
+}
+
+.list-group-item {
+    font-size: 0.75rem !important;
+}
+
+/* Primary Button Styles */
+.btn-primary {
+    background-color: var(--ucaa-blue) !important;
+    border-color: var(--ucaa-blue) !important;
+    color: #ffffff !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    background-color: var(--ucaa-blue-dark) !important;
+    border-color: var(--ucaa-blue-dark) !important;
+}
+
+/* Login Page Specific Styles */
+body .login-form .card {
+    border-top: 4px solid var(--ucaa-blue);
+    box-shadow: 0 0 30px rgba(0, 61, 165, 0.1);
+}
+
+/* Form Controls Focus */
+.form-control:focus {
+    border-color: var(--ucaa-blue);
+    box-shadow: 0 0 0 0.2rem rgba(0, 61, 165, 0.25);
+}
+
+.form-check-input:checked {
+    background-color: var(--ucaa-blue);
+    border-color: var(--ucaa-blue);
+}
+
+/* Links */
+a {
+    color: var(--ucaa-blue);
+}
+
+a:hover {
+    color: var(--ucaa-blue-dark);
+}
+
+/* Navbar */
+.navbar {
+    background-color: var(--ucaa-blue) !important;
+}
+
+.navbar-brand {
+    color: #ffffff !important;
+}
+
+/* Sidebar */
+.sidebar-main {
+    background-color: var(--ucaa-blue);
+}
+
+.sidebar-main .nav-link {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.sidebar-main .nav-link:hover,
+.sidebar-main .nav-link.active {
+    background-color: var(--ucaa-blue-dark);
+    color: #ffffff;
+}
+
+/* Page Header */
+.page-header-content {
+    background-color: var(--ucaa-blue);
+    color: #ffffff;
+}
+
+/* Badges */
+.badge-primary {
+    background-color: var(--ucaa-blue);
+}
+
+/* Cards with accent */
+.card-header.bg-primary {
+    background-color: var(--ucaa-blue) !important;
+    color: #ffffff !important;
+}
+
+.card-header.bg-light {
+    background-color: #f8f9fa !important;
+    color: var(--ucaa-blue) !important;
+}
+
+.text-primary {
+    color: var(--ucaa-blue) !important;
+}
+
+.bg-primary {
+    background-color: var(--ucaa-blue) !important;
+    color: #ffffff !important;
+}
+
+/* Outline Buttons */
+.btn-outline-primary {
+    color: var(--ucaa-blue) !important;
+    border-color: var(--ucaa-blue) !important;
+}
+
+.btn-outline-primary:hover {
+    color: #ffffff !important;
+    background-color: var(--ucaa-blue) !important;
+    border-color: var(--ucaa-blue) !important;
+}
+
+/* Alert Success - using yellow accent */
+.alert-success {
+    background-color: var(--ucaa-yellow);
+    border-color: var(--ucaa-yellow-dark);
+    color: var(--ucaa-black);
+}
+
+/* Login Form Enhancements */
+.login-form .card-body {
+    padding: 1.5rem;
+}
+
+.login-form .ucaa-logo-container {
+    margin-bottom: 0.75rem;
+}
+
+.login-form .ucaa-logo {
+    max-height: 90px;
+    width: auto;
+}
+
+/* Background gradient for login page */
+body.login-page {
+    background: linear-gradient(135deg, var(--ucaa-blue) 0%, var(--ucaa-blue-light) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+body.login-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0px, rgba(255, 255, 255, 0.03) 1px, transparent 1px, transparent 50px),
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0px, rgba(255, 255, 255, 0.03) 1px, transparent 1px, transparent 50px);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+body.login-page::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M8 8h8v8H8z' fill='rgba(255,255,255,0.03)'/%3E%3Cpath d='M20 8h8v8h-8z' fill='rgba(255,255,255,0.02)'/%3E%3Cpath d='M32 8h8v8h-8z' fill='rgba(255,255,255,0.03)'/%3E%3Cpath d='M8 20h8v8H8z' fill='rgba(255,255,255,0.02)'/%3E%3Cpath d='M20 20h8v8h-8z' fill='rgba(255,255,255,0.04)'/%3E%3Cpath d='M32 20h8v8h-8z' fill='rgba(255,255,255,0.02)'/%3E%3Cpath d='M8 32h8v8H8z' fill='rgba(255,255,255,0.03)'/%3E%3Cpath d='M20 32h8v8h-8z' fill='rgba(255,255,255,0.02)'/%3E%3Cpath d='M32 32h8v8h-8z' fill='rgba(255,255,255,0.03)'/%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+/* Warehouse/Stores Pattern Icons */
+.login-page .content::before,
+.login-page .content::after {
+    content: '';
+    position: absolute;
+    font-family: 'phosphor';
+    font-size: 120px;
+    opacity: 0.05;
+    color: white;
+    z-index: 0;
+}
+
+.login-page .content::before {
+    content: '\e94d'; /* box icon */
+    top: 10%;
+    left: 5%;
+    transform: rotate(-15deg);
+}
+
+.login-page .content::after {
+    content: '\ea0e'; /* package icon */
+    bottom: 15%;
+    right: 8%;
+    transform: rotate(15deg);
+}
+
+.login-page .login-form {
+    position: relative;
+    z-index: 1;
+}
+
+/* Footer styling */
+.footer, .navbar-footer {
+    background-color: #f8f9fa !important;
+    color: #2B2B2B !important;
+    border-top: 1px solid #dee2e6 !important;
+}
+
+.footer a, .navbar-footer a {
+    color: var(--ucaa-blue) !important;
+    font-weight: 500;
+}
+
+.footer a:hover, .navbar-footer a:hover {
+    color: var(--ucaa-blue-dark) !important;
+}
+
+.navbar-footer .navbar-nav-link {
+    color: #6c757d !important;
+}
+
+.navbar-footer .navbar-nav-link:hover {
+    color: var(--ucaa-blue) !important;
+    background-color: rgba(0, 61, 165, 0.1) !important;
+}
+
+/* Table headers */
+.table thead th {
+    background-color: var(--ucaa-blue);
+    color: #ffffff;
+}
+
+/* Pagination */
+.pagination .page-link {
+    color: var(--ucaa-blue);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--ucaa-blue);
+    border-color: var(--ucaa-blue);
+}
+
+/* Progress bars */
+.progress-bar {
+    background-color: var(--ucaa-blue);
+}
+
+/* Dropdown menu active items */
+.dropdown-item.active,
+.dropdown-item:active {
+    background-color: var(--ucaa-blue);
+}
+
+/* Nav tabs */
+.nav-tabs .nav-link.active {
+    color: var(--ucaa-blue);
+    border-color: var(--ucaa-blue) var(--ucaa-blue) #fff;
+}
+
+/* Custom UCAA brand elements */
+.ucaa-header-stripe {
+    height: 5px;
+    background: linear-gradient(to right, 
+        var(--ucaa-black) 0%, 
+        var(--ucaa-black) 16.66%, 
+        var(--ucaa-yellow) 16.66%, 
+        var(--ucaa-yellow) 33.33%, 
+        var(--ucaa-red) 33.33%, 
+        var(--ucaa-red) 50%, 
+        var(--ucaa-black) 50%, 
+        var(--ucaa-black) 66.66%, 
+        var(--ucaa-yellow) 66.66%, 
+        var(--ucaa-yellow) 83.33%, 
+        var(--ucaa-red) 83.33%, 
+        var(--ucaa-red) 100%
+    );
+}
+
+.ucaa-flag-colors {
+    display: flex;
+    height: 4px;
+    margin-bottom: 1rem;
+}
+
+.ucaa-flag-colors span {
+    flex: 1;
+}
+
+.ucaa-flag-black {
+    background-color: var(--ucaa-black);
+}
+
+.ucaa-flag-yellow {
+    background-color: var(--ucaa-yellow);
+}
+
+.ucaa-flag-red {
+    background-color: var(--ucaa-red);
+}
+
+/* Responsive Enhancements */
+@media (max-width: 768px) {
+    body {
+        font-size: 0.75rem !important;
+    }
+    
+    h1 { font-size: 1.25rem !important; }
+    h2 { font-size: 1.125rem !important; }
+    h3 { font-size: 1rem !important; }
+    h4 { font-size: 0.875rem !important; }
+    h5 { font-size: 0.8125rem !important; }
+    
+    .page-title {
+        font-size: 1rem !important;
+    }
+    
+    .card {
+        margin-bottom: 1rem;
+    }
+    
+    .card-body {
+        padding: 0.75rem !important;
+    }
+    
+    .btn {
+        font-size: 0.7rem !important;
+        padding: 0.25rem 0.5rem !important;
+    }
+    
+    .navbar-brand span {
+        font-size: 0.875rem !important;
+    }
+    
+    /* Make tables responsive */
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Adjust padding for mobile */
+    .content {
+        padding: 0.5rem !important;
+    }
+    
+    .page-header-content {
+        padding: 0.5rem 1rem !important;
+    }
+    
+    /* Stack columns on mobile */
+    .col-sm-6, .col-md-6, .col-lg-6 {
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .card-header h5 {
+        font-size: 0.8125rem !important;
+    }
+    
+    .list-group-item {
+        padding: 0.5rem 0.75rem !important;
+    }
+    
+    .alert {
+        padding: 0.5rem 0.75rem !important;
+    }
+}
+
