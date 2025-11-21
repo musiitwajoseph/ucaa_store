@@ -8,10 +8,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use LdapRecord\Laravel\Auth\LdapAuthenticatable;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
+use App\Traits\Auditable;
 
 class User extends Authenticatable implements LdapAuthenticatable
 {
-    use HasFactory, Notifiable, AuthenticatesWithLdap;
+    use HasFactory, Notifiable, AuthenticatesWithLdap, Auditable;
 
     /**
      * The attributes that are mass assignable.
@@ -20,6 +21,7 @@ class User extends Authenticatable implements LdapAuthenticatable
      */
     protected $fillable = [
         // Basic Information
+        'code',
         'name',
         'first_name',
         'last_name',
@@ -42,12 +44,12 @@ class User extends Authenticatable implements LdapAuthenticatable
         'country',
         'postal_code',
         
-        // Organization Information
-        'department',
-        'job_title',
+        // Organization Information (Foreign Keys)
+        'department_id',
+        'job_title_id',
+        'office_location_id',
         'employee_id',
         'manager_id',
-        'office_location',
         
         // Profile Information
         'avatar',
@@ -202,6 +204,236 @@ class User extends Authenticatable implements LdapAuthenticatable
     public function uploadedAttachments()
     {
         return $this->hasMany(Attachment::class, 'uploaded_by');
+    }
+
+    /**
+     * Get the user's department.
+     */
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+
+    /**
+     * Get the user's job title.
+     */
+    public function jobTitle()
+    {
+        return $this->belongsTo(JobTitle::class);
+    }
+
+    /**
+     * Get the user's office location.
+     */
+    public function officeLocation()
+    {
+        return $this->belongsTo(OfficeLocation::class);
+    }
+
+    /**
+     * Get all roles assigned to the user.
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'role_user')
+                    ->withPivot('assigned_by', 'assigned_at')
+                    ->withTimestamps();
+    }
+
+    /**
+     * Check if user has a specific role.
+     */
+    public function hasRole($roleCode)
+    {
+        return $this->roles()->where('code', $roleCode)->exists();
+    }
+
+    /**
+     * Check if user has any of the given roles.
+     */
+    public function hasAnyRole($roles)
+    {
+        return $this->roles()->whereIn('code', (array) $roles)->exists();
+    }
+
+    /**
+     * Check if user has all of the given roles.
+     */
+    public function hasAllRoles($roles)
+    {
+        $roles = (array) $roles;
+        return $this->roles()->whereIn('code', $roles)->count() === count($roles);
+    }
+
+    /**
+     * Assign a role to the user.
+     */
+    public function assignRole($role)
+    {
+        if (is_string($role)) {
+            $role = Role::where('code', $role)->firstOrFail();
+        }
+
+        if (!$this->roles()->where('role_id', $role->id)->exists()) {
+            $this->roles()->attach($role->id, [
+                'assigned_by' => auth()->id(),
+                'assigned_at' => now(),
+            ]);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove a role from the user.
+     */
+    public function removeRole($role)
+    {
+        if (is_string($role)) {
+            $role = Role::where('code', $role)->firstOrFail();
+        }
+
+        $this->roles()->detach($role->id);
+
+        return $this;
+    }
+
+    /**
+     * Sync user roles.
+     */
+    public function syncRoles($roles)
+    {
+        $roleIds = collect($roles)->map(function ($role) {
+            if (is_string($role)) {
+                return Role::where('code', $role)->firstOrFail()->id;
+            }
+            return is_object($role) ? $role->id : $role;
+        })->toArray();
+
+        $syncData = [];
+        foreach ($roleIds as $roleId) {
+            $syncData[$roleId] = [
+                'assigned_by' => auth()->id(),
+                'assigned_at' => now(),
+            ];
+        }
+
+        $this->roles()->sync($syncData);
+
+        return $this;
+    }
+
+    /**
+     * Check if user has a specific permission through any of their roles.
+     */
+    public function hasPermission($permission)
+    {
+        // Check direct permissions first
+        if ($this->hasDirectPermission($permission)) {
+            return true;
+        }
+
+        // Check role permissions
+        return $this->roles->contains(function ($role) use ($permission) {
+            return $role->hasPermission($permission);
+        });
+    }
+
+    /**
+     * Get all direct permissions assigned to the user.
+     */
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class, 'permission_user')
+                    ->withPivot('assigned_by', 'assigned_at')
+                    ->withTimestamps();
+    }
+
+    /**
+     * Check if user has a direct permission (not through a role).
+     */
+    public function hasDirectPermission($permission)
+    {
+        if (is_string($permission)) {
+            return $this->permissions()->where('code', $permission)->exists();
+        }
+        
+        return $this->permissions()->where('id', $permission->id)->exists();
+    }
+
+    /**
+     * Give a direct permission to the user.
+     */
+    public function givePermission($permission)
+    {
+        if (is_string($permission)) {
+            $permission = Permission::where('code', $permission)->firstOrFail();
+        }
+
+        if (!$this->permissions()->where('permission_id', $permission->id)->exists()) {
+            $this->permissions()->attach($permission->id, [
+                'assigned_by' => auth()->id(),
+                'assigned_at' => now(),
+            ]);
+        }
+        
+        return $this;
+    }
+
+    /**
+     * Revoke a direct permission from the user.
+     */
+    public function revokePermission($permission)
+    {
+        if (is_string($permission)) {
+            $permission = Permission::where('code', $permission)->firstOrFail();
+        }
+
+        $this->permissions()->detach($permission->id);
+        
+        return $this;
+    }
+
+    /**
+     * Sync direct permissions for the user.
+     */
+    public function syncPermissions($permissions)
+    {
+        $permissionIds = collect($permissions)->map(function ($permission) {
+            if (is_string($permission)) {
+                return Permission::where('code', $permission)->firstOrFail()->id;
+            }
+            return is_object($permission) ? $permission->id : $permission;
+        })->toArray();
+
+        $syncData = [];
+        foreach ($permissionIds as $permissionId) {
+            $syncData[$permissionId] = [
+                'assigned_by' => auth()->id(),
+                'assigned_at' => now(),
+            ];
+        }
+
+        $this->permissions()->sync($syncData);
+
+        return $this;
+    }
+
+    /**
+     * Get all permissions (both from roles and direct).
+     */
+    public function getAllPermissions()
+    {
+        // Get direct permissions
+        $directPermissions = $this->permissions;
+
+        // Get permissions from roles
+        $rolePermissions = $this->roles->flatMap(function ($role) {
+            return $role->permissions;
+        });
+
+        // Merge and remove duplicates
+        return $directPermissions->merge($rolePermissions)->unique('id');
     }
 
     /**
