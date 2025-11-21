@@ -1,6 +1,16 @@
-@extends('layouts.app')
+@extends('layouts.master')
+
+@section('title', 'Dashboard')
 
 @section('content')
+
+@component('components.breadcrumb')
+    @slot('title') Dashboard @endslot
+    @slot('subtitle') Home @endslot
+    @slot('breadcrumb_items')
+        <span class="breadcrumb-item active">Dashboard</span>
+    @endslot
+@endcomponent
 <div class="container mt-4">
   <div class="card shadow">
     <div class="card-header bg-primary text-white text-center">
@@ -48,12 +58,12 @@
         <table class="table table-bordered" id="items_table">
           <thead class="table-secondary">
             <tr>
-                <th style="width: 100px;">TRANSACTION DATE</th>
-              <th style="width: 180px;">ISSUE NOTE REFERENCE</th>
-              <th>ITEM DESCRIPTION / CODE</th>
+                <th style="width: 100px;">Transaction Date</th>
+              <th style="width: 150px;">Issue Note Ref</th>
+              <th>Description</th>
                
-              <th style="width: 100px;">QTY RETURNED </th>
-              <th style="width: 100px;">RETURNEE/COST CENTRE </th>
+              <th style="width: 100px;">Qty Returned </th>
+              <th style="width: 100px;">COST CENTRE </th>
               <th style="width: 80px;">Remove</th>
               <!-- <th> return/ comment</th> -->
             </tr>

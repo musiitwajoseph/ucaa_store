@@ -1,6 +1,16 @@
-@extends('layouts.app')
+@extends('layouts.master')
+
+@section('title', 'Dashboard')
 
 @section('content')
+
+@component('components.breadcrumb')
+    @slot('title') Dashboard @endslot
+    @slot('subtitle') Home @endslot
+    @slot('breadcrumb_items')
+        <span class="breadcrumb-item active">Dashboard</span>
+    @endslot
+@endcomponent
 
 <div class="container mt-4">
   <div class="card shadow">
@@ -45,10 +55,10 @@
             <tr>
               <th style="width: 90px;">QTY REQ</th>
               <th style="width: 120px;">UNIT</th>
-               <th style="width: 120px;">QTY REQ IN WORDS</th>
+           
               <th>ITEM DESCRIPTION</th>
               <th style="width: 100px;">QTY ISSUED</th>
-              <th style="width: 140px;">QTY ISSUED IN WORDS</th>
+              
               <th style="width: 80px;">Remove</th>
             </tr>
           </thead>
@@ -56,10 +66,10 @@
             <tr>
               <td><input type="number" name="qty_req[]" class="form-control" min="0" step="1"></td>
               <td><input type="text" name="unit[]" class="form-control" min="0" step="1"></td>
-              <td><input type="text" name="qty_req_words[]" class="form-control" placeholder=""></td>
+              
               <td><input type="text" name="description[]" class="form-control" placeholder="Description"></td>
               <td><input type="number" name="qty_issued[]" class="form-control" placeholder=""></td>
-               <td><input type="text" name="qty_issued_words[]" class="form-control" placeholder=""></td>
+               
               
               <td class="text-center">
                 <button type="button" class="btn btn-danger btn-sm removeRow">✕</button>
@@ -87,10 +97,10 @@
       <tr>
        <td><input type="number" name="qty_req[]" class="form-control" min="0" step="1"></td>
               <td><input type="text" name="unit[]" class="form-control" min="0" step="1"></td>
-              <td><input type="text" name="qty_req_words[]" class="form-control" placeholder=""></td>
+             
               <td><input type="text" name="description[]" class="form-control" placeholder="Description"></td>
               <td><input type="number" name="qty_issued[]" class="form-control" placeholder=""></td>
-               <td><input type="text" name="qty_issued_words[]" class="form-control" placeholder=""></td>
+             
               
         <td class="text-center">
           <button type="button" class="btn btn-danger btn-sm removeRow">✕</button>

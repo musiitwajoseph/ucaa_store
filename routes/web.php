@@ -24,8 +24,30 @@ Route::middleware('auth')->group(function () {
     Route::put('/profile', [LoginController::class, 'updateProfile'])->name('profile.update');
     Route::put('/profile/password', [LoginController::class, 'updatePassword'])->name('profile.password');
 
-    // Example: Route for a specific page
-    Route::get('/example', function () {
-        return view('example');
-    });
+    
+    
+    Route::get('/gate', function () {
+    return view('gate');
+    })->name('gate');
+    
+    Route::get('/issuing', function () {
+        return view('issuing');
+    })->name('issuing'); 
+    Route::get('/rejection', function () {
+        return view('rejection');
+    })->name('rejection');
+
+    Route::get('/cash_voucher', function () {
+        return view('cash_voucher');
+    })->name('cash_voucher');
+
+    Route::get('/receive', function () {
+        return view('receive');
+    })->name('receive');
+
+    
+    Route::get('/material_return', function () {
+        return view('material_return');
+    })->name('material_return');
+
 });

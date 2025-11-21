@@ -1,7 +1,16 @@
-@extends('layouts.app')
+@extends('layouts.master')
+
+@section('title', 'Dashboard')
 
 @section('content')
 
+@component('components.breadcrumb')
+    @slot('title') Dashboard @endslot
+    @slot('subtitle') Home @endslot
+    @slot('breadcrumb_items')
+        <span class="breadcrumb-item active">Dashboard</span>
+    @endslot
+@endcomponent
 <div class="container mt-4">
   <div class="card shadow">
     <div class="card-header bg-primary text-white text-center">

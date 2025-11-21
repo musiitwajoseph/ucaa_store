@@ -1,5 +1,5 @@
         <!-- Main sidebar -->
-        <div class="sidebar sidebar-dark sidebar-main sidebar-expand-lg sidebar-main-resized">
+        <div class="sidebar sidebar-dark sidebar-main sidebar-expand-lg">
 
             <!-- Sidebar content -->
             <div class="sidebar-content">
@@ -41,6 +41,8 @@
                                 </span>
                             </a>
                         </li>
+
+                        
                         <li class="nav-item nav-item-submenu">
                             <a href="#" class="nav-link">
                                 <i class="ph-swatches"></i>
