@@ -101,5 +101,30 @@ Route::middleware('auth')->group(function () {
     Route::delete('/audit-logs-clear', [AuditLogController::class, 'clear'])
         ->name('audit-logs.clear')
         ->middleware('permission:audit-logs-clear');
+
+    Route::get('/gate', function () {
+    return view('gate');
+    })->name('gate');
+    
+    Route::get('/issuing', function () {
+        return view('issuing');
+    })->name('issuing'); 
+    Route::get('/rejection', function () {
+        return view('rejection');
+    })->name('rejection');
+
+    Route::get('/cash_voucher', function () {
+        return view('cash_voucher');
+    })->name('cash_voucher');
+
+    Route::get('/receive', function () {
+        return view('receive');
+    })->name('receive');
+
+    
+    Route::get('/material_return', function () {
+        return view('material_return');
+    })->name('material_return');
 });
+
 
