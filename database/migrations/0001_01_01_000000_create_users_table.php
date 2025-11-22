@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('password')->nullable();
             
             // LDAP Fields
-            $table->string('guid')->unique()->nullable()->comment('LDAP GUID');
+            $table->string('guid')->nullable()->comment('LDAP GUID');
             $table->string('domain')->nullable()->comment('LDAP Domain');
             $table->text('ldap_dn')->nullable()->comment('LDAP Distinguished Name');
             $table->timestamp('ldap_synced_at')->nullable();
@@ -41,7 +41,7 @@ return new class extends Migration
             $table->string('department')->nullable();
             $table->string('job_title')->nullable();
             $table->string('employee_id')->unique()->nullable();
-            $table->foreignId('manager_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignId('manager_id')->nullable()->constrained('users')->onDelete('no action');
             $table->string('office_location')->nullable();
             
             // Profile Information
@@ -76,6 +76,9 @@ return new class extends Migration
             $table->index(['is_active', 'status']);
             $table->index('guid');
         });
+        
+        // Create a filtered unique index for SQL Server (only indexes non-NULL values)
+        DB::statement("CREATE UNIQUE INDEX users_guid_unique ON users(guid) WHERE guid IS NOT NULL");
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();

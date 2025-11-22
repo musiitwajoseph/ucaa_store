@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\AuditHelper;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -44,6 +45,9 @@ class LoginController extends Controller
                 $user = Auth::user();
                 $user->updateLastLogin($request->ip());
                 
+                // Log successful login
+                AuditHelper::logLogin($user);
+                
                 return redirect()->intended(route('dashboard'))->with('success', 'Welcome back, ' . $user->name . '!');
             }
         } catch (\LdapRecord\LdapRecordException $e) {
@@ -63,8 +67,14 @@ class LoginController extends Controller
             
             $user->updateLastLogin($request->ip());
             
+            // Log successful login
+            AuditHelper::logLogin($user);
+            
             return redirect()->intended(route('dashboard'))->with('success', 'Welcome back, ' . $user->name . '!');
         }
+
+        // Log failed login attempt
+        AuditHelper::logFailedLogin($credentials['email']);
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
@@ -76,6 +86,13 @@ class LoginController extends Controller
      */
     public function logout(Request $request): RedirectResponse
     {
+        $user = Auth::user();
+        
+        // Log logout event before actually logging out
+        if ($user) {
+            AuditHelper::logLogout($user);
+        }
+        
         Auth::logout();
 
         $request->session()->invalidate();

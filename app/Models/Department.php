@@ -26,6 +26,14 @@ class Department extends Model
     ];
 
     /**
+     * Scope a query to only include active departments.
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
+    /**
      * Get the users for the department.
      */
     public function users()

@@ -27,6 +27,14 @@ class JobTitle extends Model
     ];
 
     /**
+     * Scope a query to only include active job titles.
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
+    /**
      * Get the users for the job title.
      */
     public function users()
