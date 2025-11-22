@@ -149,6 +149,99 @@ class MasterDataSeeder extends Seeder
         }
 
         $this->command->info('Master data seeded successfully!');
+
+        // Seed Master Data Categories
+        $categories = [
+            ['code' => 'COUNTRY', 'name' => 'Countries', 'description' => 'List of countries', 'icon' => 'ph ph-globe', 'color' => '#3b82f6', 'display_order' => 1, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['code' => 'CURRENCY', 'name' => 'Currencies', 'description' => 'List of currencies', 'icon' => 'ph ph-currency-circle-dollar', 'color' => '#10b981', 'display_order' => 2, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['code' => 'UOM', 'name' => 'Units of Measure', 'description' => 'Measurement units', 'icon' => 'ph ph-ruler', 'color' => '#f59e0b', 'display_order' => 3, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+        ];
+        DB::table('master_data_categories')->insert($categories);
+
+        // Get category IDs
+        $countryCategory = DB::table('master_data_categories')->where('code', 'COUNTRY')->first();
+        $currencyCategory = DB::table('master_data_categories')->where('code', 'CURRENCY')->first();
+        $uomCategory = DB::table('master_data_categories')->where('code', 'UOM')->first();
+
+        // Seed Countries
+        $countries = [
+            ['category_id' => $countryCategory->id, 'code' => 'UG', 'name' => 'Uganda', 'description' => 'Republic of Uganda', 'type' => 'country', 'metadata' => json_encode(['capital' => 'Kampala', 'region' => 'East Africa', 'calling_code' => '+256']), 'display_order' => 1, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $countryCategory->id, 'code' => 'KE', 'name' => 'Kenya', 'description' => 'Republic of Kenya', 'type' => 'country', 'metadata' => json_encode(['capital' => 'Nairobi', 'region' => 'East Africa', 'calling_code' => '+254']), 'display_order' => 2, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $countryCategory->id, 'code' => 'TZ', 'name' => 'Tanzania', 'description' => 'United Republic of Tanzania', 'type' => 'country', 'metadata' => json_encode(['capital' => 'Dodoma', 'region' => 'East Africa', 'calling_code' => '+255']), 'display_order' => 3, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $countryCategory->id, 'code' => 'RW', 'name' => 'Rwanda', 'description' => 'Republic of Rwanda', 'type' => 'country', 'metadata' => json_encode(['capital' => 'Kigali', 'region' => 'East Africa', 'calling_code' => '+250']), 'display_order' => 4, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $countryCategory->id, 'code' => 'BI', 'name' => 'Burundi', 'description' => 'Republic of Burundi', 'type' => 'country', 'metadata' => json_encode(['capital' => 'Gitega', 'region' => 'East Africa', 'calling_code' => '+257']), 'display_order' => 5, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $countryCategory->id, 'code' => 'SS', 'name' => 'South Sudan', 'description' => 'Republic of South Sudan', 'type' => 'country', 'metadata' => json_encode(['capital' => 'Juba', 'region' => 'East Africa', 'calling_code' => '+211']), 'display_order' => 6, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $countryCategory->id, 'code' => 'ET', 'name' => 'Ethiopia', 'description' => 'Federal Democratic Republic of Ethiopia', 'type' => 'country', 'metadata' => json_encode(['capital' => 'Addis Ababa', 'region' => 'East Africa', 'calling_code' => '+251']), 'display_order' => 7, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $countryCategory->id, 'code' => 'SO', 'name' => 'Somalia', 'description' => 'Federal Republic of Somalia', 'type' => 'country', 'metadata' => json_encode(['capital' => 'Mogadishu', 'region' => 'East Africa', 'calling_code' => '+252']), 'display_order' => 8, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $countryCategory->id, 'code' => 'CD', 'name' => 'Democratic Republic of Congo', 'description' => 'Democratic Republic of the Congo', 'type' => 'country', 'metadata' => json_encode(['capital' => 'Kinshasa', 'region' => 'Central Africa', 'calling_code' => '+243']), 'display_order' => 9, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $countryCategory->id, 'code' => 'US', 'name' => 'United States', 'description' => 'United States of America', 'type' => 'country', 'metadata' => json_encode(['capital' => 'Washington D.C.', 'region' => 'North America', 'calling_code' => '+1']), 'display_order' => 10, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $countryCategory->id, 'code' => 'GB', 'name' => 'United Kingdom', 'description' => 'United Kingdom of Great Britain', 'type' => 'country', 'metadata' => json_encode(['capital' => 'London', 'region' => 'Europe', 'calling_code' => '+44']), 'display_order' => 11, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $countryCategory->id, 'code' => 'CN', 'name' => 'China', 'description' => 'People\'s Republic of China', 'type' => 'country', 'metadata' => json_encode(['capital' => 'Beijing', 'region' => 'Asia', 'calling_code' => '+86']), 'display_order' => 12, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $countryCategory->id, 'code' => 'IN', 'name' => 'India', 'description' => 'Republic of India', 'type' => 'country', 'metadata' => json_encode(['capital' => 'New Delhi', 'region' => 'Asia', 'calling_code' => '+91']), 'display_order' => 13, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $countryCategory->id, 'code' => 'AE', 'name' => 'United Arab Emirates', 'description' => 'United Arab Emirates', 'type' => 'country', 'metadata' => json_encode(['capital' => 'Abu Dhabi', 'region' => 'Middle East', 'calling_code' => '+971']), 'display_order' => 14, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $countryCategory->id, 'code' => 'ZA', 'name' => 'South Africa', 'description' => 'Republic of South Africa', 'type' => 'country', 'metadata' => json_encode(['capital' => 'Pretoria', 'region' => 'Southern Africa', 'calling_code' => '+27']), 'display_order' => 15, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+        ];
+        DB::table('master_data')->insert($countries);
+
+        // Seed Currencies
+        $currencies = [
+            ['category_id' => $currencyCategory->id, 'code' => 'UGX', 'name' => 'Uganda Shilling', 'description' => 'Ugandan Shilling', 'type' => 'currency', 'unit' => 'UGX', 'metadata' => json_encode(['symbol' => 'USh', 'decimal_places' => 0, 'country' => 'Uganda']), 'display_order' => 1, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $currencyCategory->id, 'code' => 'USD', 'name' => 'US Dollar', 'description' => 'United States Dollar', 'type' => 'currency', 'unit' => 'USD', 'metadata' => json_encode(['symbol' => '$', 'decimal_places' => 2, 'country' => 'United States']), 'display_order' => 2, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $currencyCategory->id, 'code' => 'EUR', 'name' => 'Euro', 'description' => 'European Euro', 'type' => 'currency', 'unit' => 'EUR', 'metadata' => json_encode(['symbol' => '€', 'decimal_places' => 2, 'country' => 'European Union']), 'display_order' => 3, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $currencyCategory->id, 'code' => 'GBP', 'name' => 'British Pound', 'description' => 'British Pound Sterling', 'type' => 'currency', 'unit' => 'GBP', 'metadata' => json_encode(['symbol' => '£', 'decimal_places' => 2, 'country' => 'United Kingdom']), 'display_order' => 4, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $currencyCategory->id, 'code' => 'KES', 'name' => 'Kenya Shilling', 'description' => 'Kenyan Shilling', 'type' => 'currency', 'unit' => 'KES', 'metadata' => json_encode(['symbol' => 'KSh', 'decimal_places' => 2, 'country' => 'Kenya']), 'display_order' => 5, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $currencyCategory->id, 'code' => 'TZS', 'name' => 'Tanzania Shilling', 'description' => 'Tanzanian Shilling', 'type' => 'currency', 'unit' => 'TZS', 'metadata' => json_encode(['symbol' => 'TSh', 'decimal_places' => 0, 'country' => 'Tanzania']), 'display_order' => 6, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $currencyCategory->id, 'code' => 'RWF', 'name' => 'Rwanda Franc', 'description' => 'Rwandan Franc', 'type' => 'currency', 'unit' => 'RWF', 'metadata' => json_encode(['symbol' => 'FRw', 'decimal_places' => 0, 'country' => 'Rwanda']), 'display_order' => 7, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $currencyCategory->id, 'code' => 'ZAR', 'name' => 'South African Rand', 'description' => 'South African Rand', 'type' => 'currency', 'unit' => 'ZAR', 'metadata' => json_encode(['symbol' => 'R', 'decimal_places' => 2, 'country' => 'South Africa']), 'display_order' => 8, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $currencyCategory->id, 'code' => 'AED', 'name' => 'UAE Dirham', 'description' => 'United Arab Emirates Dirham', 'type' => 'currency', 'unit' => 'AED', 'metadata' => json_encode(['symbol' => 'د.إ', 'decimal_places' => 2, 'country' => 'UAE']), 'display_order' => 9, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $currencyCategory->id, 'code' => 'CNY', 'name' => 'Chinese Yuan', 'description' => 'Chinese Yuan Renminbi', 'type' => 'currency', 'unit' => 'CNY', 'metadata' => json_encode(['symbol' => '¥', 'decimal_places' => 2, 'country' => 'China']), 'display_order' => 10, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+        ];
+        DB::table('master_data')->insert($currencies);
+
+        // Seed Units of Measure
+        $unitsOfMeasure = [
+            // Length
+            ['category_id' => $uomCategory->id, 'code' => 'MM', 'name' => 'Millimeter', 'description' => 'Millimeter (mm)', 'type' => 'length', 'unit' => 'mm', 'display_order' => 1, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $uomCategory->id, 'code' => 'CM', 'name' => 'Centimeter', 'description' => 'Centimeter (cm)', 'type' => 'length', 'unit' => 'cm', 'display_order' => 2, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $uomCategory->id, 'code' => 'M', 'name' => 'Meter', 'description' => 'Meter (m)', 'type' => 'length', 'unit' => 'm', 'display_order' => 3, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $uomCategory->id, 'code' => 'KM', 'name' => 'Kilometer', 'description' => 'Kilometer (km)', 'type' => 'length', 'unit' => 'km', 'display_order' => 4, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $uomCategory->id, 'code' => 'IN', 'name' => 'Inch', 'description' => 'Inch (in)', 'type' => 'length', 'unit' => 'in', 'display_order' => 5, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $uomCategory->id, 'code' => 'FT', 'name' => 'Feet', 'description' => 'Feet (ft)', 'type' => 'length', 'unit' => 'ft', 'display_order' => 6, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            
+            // Weight
+            ['category_id' => $uomCategory->id, 'code' => 'MG', 'name' => 'Milligram', 'description' => 'Milligram (mg)', 'type' => 'weight', 'unit' => 'mg', 'display_order' => 7, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $uomCategory->id, 'code' => 'G', 'name' => 'Gram', 'description' => 'Gram (g)', 'type' => 'weight', 'unit' => 'g', 'display_order' => 8, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $uomCategory->id, 'code' => 'KG', 'name' => 'Kilogram', 'description' => 'Kilogram (kg)', 'type' => 'weight', 'unit' => 'kg', 'display_order' => 9, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $uomCategory->id, 'code' => 'TON', 'name' => 'Metric Ton', 'description' => 'Metric Ton (t)', 'type' => 'weight', 'unit' => 't', 'display_order' => 10, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $uomCategory->id, 'code' => 'LB', 'name' => 'Pound', 'description' => 'Pound (lb)', 'type' => 'weight', 'unit' => 'lb', 'display_order' => 11, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            
+            // Volume
+            ['category_id' => $uomCategory->id, 'code' => 'ML', 'name' => 'Milliliter', 'description' => 'Milliliter (ml)', 'type' => 'volume', 'unit' => 'ml', 'display_order' => 12, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $uomCategory->id, 'code' => 'L', 'name' => 'Liter', 'description' => 'Liter (l)', 'type' => 'volume', 'unit' => 'l', 'display_order' => 13, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $uomCategory->id, 'code' => 'GAL', 'name' => 'Gallon', 'description' => 'Gallon (gal)', 'type' => 'volume', 'unit' => 'gal', 'display_order' => 14, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            
+            // Quantity
+            ['category_id' => $uomCategory->id, 'code' => 'PCS', 'name' => 'Pieces', 'description' => 'Pieces (pcs)', 'type' => 'quantity', 'unit' => 'pcs', 'display_order' => 15, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $uomCategory->id, 'code' => 'EA', 'name' => 'Each', 'description' => 'Each (ea)', 'type' => 'quantity', 'unit' => 'ea', 'display_order' => 16, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $uomCategory->id, 'code' => 'SET', 'name' => 'Set', 'description' => 'Set', 'type' => 'quantity', 'unit' => 'set', 'display_order' => 17, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $uomCategory->id, 'code' => 'BOX', 'name' => 'Box', 'description' => 'Box', 'type' => 'quantity', 'unit' => 'box', 'display_order' => 18, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $uomCategory->id, 'code' => 'PACK', 'name' => 'Pack', 'description' => 'Pack', 'type' => 'quantity', 'unit' => 'pack', 'display_order' => 19, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $uomCategory->id, 'code' => 'CARTON', 'name' => 'Carton', 'description' => 'Carton', 'type' => 'quantity', 'unit' => 'carton', 'display_order' => 20, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $uomCategory->id, 'code' => 'DOZEN', 'name' => 'Dozen', 'description' => 'Dozen (12 units)', 'type' => 'quantity', 'unit' => 'dozen', 'display_order' => 21, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            
+            // Area
+            ['category_id' => $uomCategory->id, 'code' => 'SQM', 'name' => 'Square Meter', 'description' => 'Square Meter (m²)', 'type' => 'area', 'unit' => 'm²', 'display_order' => 22, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $uomCategory->id, 'code' => 'SQFT', 'name' => 'Square Feet', 'description' => 'Square Feet (ft²)', 'type' => 'area', 'unit' => 'ft²', 'display_order' => 23, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            
+            // Time
+            ['category_id' => $uomCategory->id, 'code' => 'HR', 'name' => 'Hour', 'description' => 'Hour (hr)', 'type' => 'time', 'unit' => 'hr', 'display_order' => 24, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $uomCategory->id, 'code' => 'DAY', 'name' => 'Day', 'description' => 'Day', 'type' => 'time', 'unit' => 'day', 'display_order' => 25, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $uomCategory->id, 'code' => 'MONTH', 'name' => 'Month', 'description' => 'Month', 'type' => 'time', 'unit' => 'month', 'display_order' => 26, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+            ['category_id' => $uomCategory->id, 'code' => 'YEAR', 'name' => 'Year', 'description' => 'Year', 'type' => 'time', 'unit' => 'year', 'display_order' => 27, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now],
+        ];
+        DB::table('master_data')->insert($unitsOfMeasure);
+
+        $this->command->info('Countries, Currencies, and Units of Measure seeded successfully!');
     }
 }
 

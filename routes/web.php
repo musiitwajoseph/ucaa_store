@@ -3,12 +3,15 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\JobTitleController;
+use App\Http\Controllers\MasterDataCategoryController;
+use App\Http\Controllers\MasterDataController;
 use App\Http\Controllers\OfficeLocationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PublicHolidayController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\AuditLogController;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +25,11 @@ Route::get('/support', function () {
 Route::get('/documentation', function () {
     return view('documentation');
 })->name('documentation.public');
+
+// Public Version Information Route (accessible without authentication)
+Route::get('/version', function () {
+    return view('version');
+})->name('version.info');
 
 // Authentication Routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -50,6 +58,16 @@ Route::middleware('auth')->group(function () {
     Route::put('/profile/settings', [App\Http\Controllers\ProfileController::class, 'updateSettings'])->name('profile.settings.update');
 
     // Master Data Management Routes
+    Route::resource('master-data-categories', MasterDataCategoryController::class);
+    Route::get('master-data-categories-import', [MasterDataCategoryController::class, 'showImport'])->name('master-data-categories.import');
+    Route::post('master-data-categories-import', [MasterDataCategoryController::class, 'import'])->name('master-data-categories.import.process');
+    Route::get('master-data-categories-template', [MasterDataCategoryController::class, 'downloadTemplate'])->name('master-data-categories.template');
+    
+    Route::resource('master-data', MasterDataController::class);
+    Route::get('master-data-import', [MasterDataController::class, 'showImport'])->name('master-data.import');
+    Route::post('master-data-import', [MasterDataController::class, 'import'])->name('master-data.import.process');
+    Route::get('master-data-template', [MasterDataController::class, 'downloadTemplate'])->name('master-data.template');
+    
     Route::resource('departments', DepartmentController::class);
     Route::get('departments-import', [DepartmentController::class, 'showImport'])->name('departments.import');
     Route::post('departments-import', [DepartmentController::class, 'import'])->name('departments.import.process');
@@ -101,6 +119,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/audit-logs-clear', [AuditLogController::class, 'clear'])
         ->name('audit-logs.clear')
         ->middleware('permission:audit-logs-clear');
+
+    // Public Holidays Routes
+    Route::resource('public-holidays', PublicHolidayController::class);
 
     Route::get('/gate', function () {
     return view('gate');

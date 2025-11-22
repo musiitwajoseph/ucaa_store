@@ -6,56 +6,60 @@
     <!-- Page Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h4 class="mb-1">Modules</h4>
-            <p class="text-muted mb-0">Manage system modules</p>
+            <h4 class="mb-1">Master Data Categories</h4>
+            <p class="text-muted mb-0">Manage categories for organizing master data</p>
         </div>
-        <a href="{{ route('modules.create') }}" class="btn btn-primary">
-            <i class="ph-plus me-2"></i>Add Module
-        </a>
+        <div>
+            @can('data-export')
+            <a href="{{ route('master-data-categories.template') }}" class="btn btn-success me-2">
+                <i class="ph-download me-2"></i>Export Template
+            </a>
+            @endcan
+            @can('data-import')
+            <a href="{{ route('master-data-categories.import') }}" class="btn btn-info me-2">
+                <i class="ph-upload me-2"></i>Import
+            </a>
+            @endcan
+            @can('master-data-categories-create')
+            <a href="{{ route('master-data-categories.create') }}" class="btn btn-primary">
+                <i class="ph-plus me-2"></i>Add Category
+            </a>
+            @endcan
+        </div>
     </div>
 
     @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <div class="alert alert-success alert-dismissible fade show">
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     @endif
 
-    @if($errors->any())
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <ul class="mb-0">
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
-
-    <!-- Modules Table -->
+    <!-- Master Data Categories table -->
     <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">All Categories</h5>
+        </div>
+
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table eagle-table2 table-hover" id="modules-table">
-                    <thead>
-                        <tr>
-                            <th>Order</th>
-                            <th>Code</th>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Icon</th>
-                            <th>Status</th>
-                            <th>Created By</th>
-                            <th>Created At</th>
-                            <th class="text-center" style="width: 120px;">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
+            <table class="table eagle-table2 table-hover" id="categories-table">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Icon</th>
+                        <th>Items Count</th>
+                        <th>Status</th>
+                        <th class="text-center" style="width: 120px;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
     </div>
+    <!-- /master data categories table -->
 
     <!-- Delete Form (hidden) -->
     <form id="delete-form" method="POST" style="display: none;">
@@ -63,6 +67,7 @@
         @method('DELETE')
     </form>
 </div>
+<!-- /content area -->
 @endsection
 
 @section('center-scripts')
@@ -76,19 +81,17 @@
 @section('scripts')
 <script>
     $(document).ready(function() {
-        $('#modules-table').DataTable({
+        $('#categories-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{{ route('modules.index') }}',
+            ajax: '{{ route('master-data-categories.index') }}',
             columns: [
-                { data: 'display_order', name: 'display_order' },
                 { data: 'code', name: 'code' },
                 { data: 'name', name: 'name' },
                 { data: 'description', name: 'description', orderable: false },
-                { data: 'icon_display', name: 'icon', orderable: false, searchable: false },
+                { data: 'icon', name: 'icon', orderable: false },
+                { data: 'items_count', name: 'items_count', orderable: false },
                 { data: 'status', name: 'is_active' },
-                { data: 'creator_name', name: 'creator.name', orderable: false },
-                { data: 'created_at', name: 'created_at' },
                 { data: 'actions', name: 'actions', orderable: false, searchable: false, className: 'text-center' }
             ],
             order: [[0, 'asc']],
@@ -100,32 +103,32 @@
                     extend: 'copy',
                     className: 'btn btn-light',
                     text: '<i class="ph-copy me-2"></i>Copy',
-                    exportOptions: { columns: [0, 1, 2, 3, 5, 6, 7] }
+                    exportOptions: { columns: [0, 1, 2, 4, 5] }
                 },
                 {
                     extend: 'csv',
                     className: 'btn btn-light',
                     text: '<i class="ph-file-csv me-2"></i>CSV',
-                    exportOptions: { columns: [0, 1, 2, 3, 5, 6, 7] }
+                    exportOptions: { columns: [0, 1, 2, 4, 5] }
                 },
                 {
                     extend: 'excel',
                     className: 'btn btn-light',
                     text: '<i class="ph-file-xls me-2"></i>Excel',
-                    exportOptions: { columns: [0, 1, 2, 3, 5, 6, 7] }
+                    exportOptions: { columns: [0, 1, 2, 4, 5] }
                 },
                 {
                     extend: 'pdf',
                     className: 'btn btn-light',
                     text: '<i class="ph-file-pdf me-2"></i>PDF',
                     orientation: 'landscape',
-                    exportOptions: { columns: [0, 1, 2, 3, 5, 6, 7] }
+                    exportOptions: { columns: [0, 1, 2, 4, 5] }
                 },
                 {
                     extend: 'print',
                     className: 'btn btn-light',
                     text: '<i class="ph-printer me-2"></i>Print',
-                    exportOptions: { columns: [0, 1, 2, 3, 5, 6, 7] }
+                    exportOptions: { columns: [0, 1, 2, 4, 5] }
                 }
             ],
             language: {
@@ -142,10 +145,10 @@
         });
     });
 
-    function deleteModule(id) {
-        if (confirm('Are you sure you want to delete this module?')) {
+    function deleteCategory(id) {
+        if (confirm('Are you sure you want to delete this category? This may affect related master data.')) {
             const form = document.getElementById('delete-form');
-            form.action = '{{ url('modules') }}/' + id;
+            form.action = '{{ url('master-data-categories') }}/' + id;
             form.submit();
         }
     }
