@@ -29,12 +29,25 @@
 
 <!-- Content area -->
 <div class="content">
+    <!-- UCAA Branding Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card bg-primary text-white">
+                <div class="card-body text-center py-4">
+                    <img src="{{URL::asset('assets/images/ucaa-logo.png')}}" alt="UCAA Logo" style="height: 80px;" class="mb-3">
+                    <h3 class="mb-2 fw-bold">Uganda Civil Aviation Authority</h3>
+                    <h5 class="mb-0 opacity-75">Store System Support</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Contact Information and Quick Links -->
     <div class="row">
         <!-- Contact Information -->
         <div class="col-lg-6">
             <div class="card">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header" style="background-color: #003DA5; color: white;">
                     <h5 class="mb-0">
                         <i class="ph-phone me-2"></i>
                         Contact Information
@@ -42,36 +55,36 @@
                 </div>
                 <div class="card-body">
                     <div class="mb-4">
-                        <h6 class="fw-bold mb-3">System Support by Flaxem</h6>
-                        <p class="text-muted mb-3">For technical support and system-related queries, please contact our development team.</p>
+                        <h6 class="fw-bold mb-3">IT Support Department</h6>
+                        <p class="text-muted mb-3">For technical support and system-related queries, please contact our IT support team.</p>
                         
                         <div class="list-group list-group-flush">
                             <div class="list-group-item d-flex align-items-center">
                                 <i class="ph-envelope me-3 text-primary" style="font-size: 1.5rem;"></i>
                                 <div>
                                     <div class="fw-semibold">Email</div>
-                                    <a href="mailto:support@flaxem.com">support@flaxem.com</a>
+                                    <a href="mailto:support@ucaa.go.ug">support@ucaa.go.ug</a>
                                 </div>
                             </div>
                             <div class="list-group-item d-flex align-items-center">
                                 <i class="ph-phone me-3 text-primary" style="font-size: 1.5rem;"></i>
                                 <div>
                                     <div class="fw-semibold">Phone</div>
-                                    <a href="tel:+256">+256 XXX XXX XXX</a>
+                                    <a href="tel:+256414353000">+256 414 353 000</a>
                                 </div>
                             </div>
                             <div class="list-group-item d-flex align-items-center">
                                 <i class="ph-globe me-3 text-primary" style="font-size: 1.5rem;"></i>
                                 <div>
                                     <div class="fw-semibold">Website</div>
-                                    <a href="https://flaxem.com" target="_blank">www.flaxem.com</a>
+                                    <a href="https://www.caa.go.ug" target="_blank">www.caa.go.ug</a>
                                 </div>
                             </div>
                             <div class="list-group-item d-flex align-items-center">
                                 <i class="ph-map-pin me-3 text-primary" style="font-size: 1.5rem;"></i>
                                 <div>
                                     <div class="fw-semibold">Location</div>
-                                    <span>Kampala, Uganda</span>
+                                    <span>Plot 24, Nakasero Road, Kampala, Uganda</span>
                                 </div>
                             </div>
                         </div>
@@ -95,10 +108,10 @@
                 <div class="col-md-6 mb-3">
                     <div class="card text-center h-100">
                         <div class="card-body">
-                            <i class="ph-book-open text-primary mb-3" style="font-size: 3rem;"></i>
+                            <i class="ph-book-open mb-3" style="font-size: 3rem; color: #003DA5;"></i>
                             <h6 class="fw-bold">User Manual</h6>
                             <p class="text-muted small">Download comprehensive user documentation</p>
-                            <a href="#" class="btn btn-outline-primary btn-sm">Download PDF</a>
+                            <a href="{{ route('documentation.public') }}" class="btn btn-sm" style="background-color: #003DA5; color: white; border-color: #003DA5;">View Documentation</a>
                         </div>
                     </div>
                 </div>
@@ -106,21 +119,31 @@
                 <div class="col-md-6 mb-3">
                     <div class="card text-center h-100">
                         <div class="card-body">
-                            <i class="ph-video text-primary mb-3" style="font-size: 3rem;"></i>
+                            <i class="ph-video mb-3" style="font-size: 3rem; color: #003DA5;"></i>
                             <h6 class="fw-bold">Video Tutorials</h6>
                             <p class="text-muted small">Watch step-by-step video guides</p>
-                            <a href="#" class="btn btn-outline-primary btn-sm">View Tutorials</a>
+                            <a href="#" class="btn btn-sm" style="background-color: #003DA5; color: white; border-color: #003DA5;">View Tutorials</a>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-12">
-                    <div class="card text-center">
+                    <div class="card">
+                        <div class="card-header bg-light">
+                            <h6 class="mb-0">
+                                <i class="ph-headset me-2"></i>
+                                IT Support Department
+                            </h6>
+                        </div>
                         <div class="card-body">
-                            <i class="ph-chats-circle text-primary mb-3" style="font-size: 3rem;"></i>
-                            <h6 class="fw-bold">Live Chat</h6>
-                            <p class="text-muted small">Chat with our support team</p>
-                            <a href="#" class="btn btn-outline-primary btn-sm">Start Chat</a>
+                            <p class="text-muted mb-3">Our IT support team is available to assist you with:</p>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="ph-check-circle text-success me-2"></i> System access and login issues</li>
+                                <li class="mb-2"><i class="ph-check-circle text-success me-2"></i> Password resets and account management</li>
+                                <li class="mb-2"><i class="ph-check-circle text-success me-2"></i> Technical troubleshooting</li>
+                                <li class="mb-2"><i class="ph-check-circle text-success me-2"></i> Feature requests and system improvements</li>
+                                <li class="mb-2"><i class="ph-check-circle text-success me-2"></i> Training and onboarding</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -148,7 +171,7 @@
                             </h2>
                             <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
                                 <div class="accordion-body">
-                                    Click on "Forgot Password?" on the login page and follow the instructions sent to your registered email address.
+                                    Contact the IT support team at support@ucaa.go.ug or call +256 414 353 000 to request a password reset. You will need to verify your identity for security purposes.
                                 </div>
                             </div>
                         </div>
@@ -161,7 +184,7 @@
                             </h2>
                             <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                                 <div class="accordion-body">
-                                    Contact Flaxem support team at support@flaxem.com to schedule training sessions for your team.
+                                    Contact the IT support department to schedule training sessions. Training can be arranged for individual users or groups depending on your needs.
                                 </div>
                             </div>
                         </div>
@@ -174,7 +197,7 @@
                             </h2>
                             <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                                 <div class="accordion-body">
-                                    Use the support request form above and select "Bug Report" as the category. Provide as much detail as possible including screenshots.
+                                    Send an email to support@ucaa.go.ug with a detailed description of the issue. Include screenshots if possible, and describe the steps that led to the problem.
                                 </div>
                             </div>
                         </div>
@@ -187,7 +210,33 @@
                             </h2>
                             <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                                 <div class="accordion-body">
-                                    The system works on any modern web browser (Chrome, Firefox, Safari, Edge). We recommend using the latest version of your preferred browser for the best experience.
+                                    The UCAA Store System works on any modern web browser (Chrome, Firefox, Safari, Edge). We recommend using the latest version of your preferred browser for the best experience. A stable internet connection is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                                    How do I request new features?
+                                </button>
+                            </h2>
+                            <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Feature requests can be submitted to the IT department via email. Describe the feature you need and explain how it would benefit your workflow. All requests are reviewed and prioritized based on organizational needs.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
+                                    What should I do if I can't login?
+                                </button>
+                            </h2>
+                            <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    First, verify you are using the correct email and password. If you've forgotten your password, contact IT support for a reset. If the issue persists, there may be a problem with your account permissions - contact support immediately.
                                 </div>
                             </div>
                         </div>

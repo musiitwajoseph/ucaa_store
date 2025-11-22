@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('code')->unique(); // e.g., 'create_department'
             $table->string('name'); // e.g., 'Create Department'
-            $table->string('module'); // e.g., 'departments', 'users', 'stores'
+            $table->foreignId('module_id')->constrained('modules')->onDelete('no action');
             $table->text('description')->nullable();
             $table->boolean('is_active')->default(true);
             
@@ -27,7 +27,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             
-            $table->index('module');
+            $table->index('module_id');
         });
     }
 

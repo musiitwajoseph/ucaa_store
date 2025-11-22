@@ -16,6 +16,7 @@ class AuditLog extends Model
         'ip_address',
         'user_agent',
         'url',
+        'description',
     ];
 
     protected $casts = [

@@ -29,6 +29,14 @@ class OfficeLocation extends Model
     ];
 
     /**
+     * Scope a query to only include active office locations.
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
+    /**
      * Get the users for the office location.
      */
     public function users()

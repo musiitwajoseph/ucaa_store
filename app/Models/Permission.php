@@ -13,7 +13,9 @@ class Permission extends Model
     protected $fillable = [
         'code',
         'name',
-        'module',
+        'module_id',
+        'category',
+        'display_order',
         'description',
         'is_active',
         'created_by',
@@ -25,6 +27,14 @@ class Permission extends Model
         'is_active' => 'boolean',
         'deleted_at' => 'datetime',
     ];
+
+    /**
+     * Get the module this permission belongs to.
+     */
+    public function module()
+    {
+        return $this->belongsTo(Module::class);
+    }
 
     /**
      * Get all roles that have this permission.
@@ -81,8 +91,8 @@ class Permission extends Model
     /**
      * Scope for a specific module.
      */
-    public function scopeForModule($query, $module)
+    public function scopeForModule($query, $moduleId)
     {
-        return $query->where('module', $module);
+        return $query->where('module_id', $moduleId);
     }
 }

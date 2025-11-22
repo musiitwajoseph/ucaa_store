@@ -45,19 +45,58 @@
                 <!-- Main -->
                 <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Main</div> <i class="icon-menu" title="Main"></i></li>
                 <li class="nav-item">
-                    <a href="{{ url('/') }}" class="nav-link {{ request()->is('/') ? 'active' : '' }}">
+                    <a href="{{ route('dashboard') }}" class="nav-link {{ request()->is('/') ? 'active' : '' }}">
                         <i class="icon-home4"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
                 
-                <!-- Add your menu items here -->
-                <li class="nav-item nav-item-submenu">
-                    <a href="#" class="nav-link"><i class="icon-stack"></i> <span>Example Menu</span></a>
-                    <ul class="nav nav-group-sub" data-submenu-title="Example">
-                        <li class="nav-item"><a href="#" class="nav-link">Submenu Item 1</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Submenu Item 2</a></li>
-                    </ul>
+                <!-- Master Data -->
+                <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Master Data</div> <i class="icon-menu" title="Master Data"></i></li>
+                
+                <li class="nav-item">
+                    <a href="{{ route('departments.index') }}" class="nav-link {{ request()->is('departments*') ? 'active' : '' }}">
+                        <i class="ph-buildings"></i>
+                        <span>Departments</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('job-titles.index') }}" class="nav-link {{ request()->is('job-titles*') ? 'active' : '' }}">
+                        <i class="ph-briefcase"></i>
+                        <span>Job Titles</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('office-locations.index') }}" class="nav-link {{ request()->is('office-locations*') ? 'active' : '' }}">
+                        <i class="ph-map-pin"></i>
+                        <span>Office Locations</span>
+                    </a>
+                </li>
+
+                <!-- User Management -->
+                <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">User Management</div> <i class="icon-menu" title="User Management"></i></li>
+                
+                <li class="nav-item">
+                    <a href="{{ route('users.index') }}" class="nav-link {{ request()->is('users*') ? 'active' : '' }}">
+                        <i class="ph-users"></i>
+                        <span>Users</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('roles.index') }}" class="nav-link {{ request()->is('roles*') ? 'active' : '' }}">
+                        <i class="ph-shield-check"></i>
+                        <span>Roles</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('permissions.index') }}" class="nav-link {{ request()->is('permissions*') ? 'active' : '' }}">
+                        <i class="ph-lock-key"></i>
+                        <span>Permissions</span>
+                    </a>
                 </li>
                 <!-- /main -->
             </ul>

@@ -26,7 +26,7 @@ const DatatableFixedColumns = function() {
 
         // Setting datatable defaults
         $.extend( $.fn.dataTable.defaults, {
-            columnDefs: [{ 
+            columnDefs: [{
                 orderable: false,
                 width: 100,
                 targets: [ 5 ]
@@ -44,23 +44,23 @@ const DatatableFixedColumns = function() {
         // Left fixed column example
         $('.datatable-fixed-left').DataTable({
             columnDefs: [
-                { 
+                {
                     orderable: false,
                     targets: 5
                 },
-                { 
+                {
                     width: 200,
                     targets: 0
                 },
-                { 
+                {
                     width: 300,
                     targets: 1
                 },
-                { 
+                {
                     width: 200,
                     targets: [5, 6]
                 },
-                { 
+                {
                     width: 100,
                     targets: 4
                 }
@@ -75,23 +75,23 @@ const DatatableFixedColumns = function() {
         // Right fixed column example
         $('.datatable-fixed-right').DataTable({
             columnDefs: [
-                { 
+                {
                     orderable: false,
                     targets: 5
                 },
-                { 
+                {
                     width: 300,
                     targets: 0
                 },
-                { 
+                {
                     width: 300,
                     targets: 1
                 },
-                { 
+                {
                     width: 200,
                     targets: [5, 6]
                 },
-                { 
+                {
                     width: 100,
                     targets: [3, 4]
                 }
@@ -109,23 +109,23 @@ const DatatableFixedColumns = function() {
         // Left and right fixed columns
         $('.datatable-fixed-both').DataTable({
             columnDefs: [
-                { 
+                {
                     orderable: false,
                     targets: 5
                 },
-                { 
+                {
                     width: 200,
                     targets: 0
                 },
-                { 
+                {
                     width: 100,
                     targets: 1
                 },
-                { 
+                {
                     width: 200,
                     targets: [5, 6]
                 },
-                { 
+                {
                     width: 100,
                     targets: 4
                 }
@@ -143,28 +143,28 @@ const DatatableFixedColumns = function() {
         //
         // Fixed column with complex headers
         //
-        
+
         // Initialize
         const table = $('.datatable-fixed-complex').DataTable({
             autoWidth: false,
             columnDefs: [
-                { 
+                {
                     orderable: false,
                     targets: 5
                 },
-                { 
+                {
                     width: 250,
                     targets: 0
                 },
-                { 
+                {
                     width: 250,
                     targets: 1
                 },
-                { 
+                {
                     width: 200,
                     targets: [5, 6]
                 },
-                { 
+                {
                     width: 100,
                     targets: 4
                 }
