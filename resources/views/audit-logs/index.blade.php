@@ -1,16 +1,17 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="container-fluid mt-4">
+<!-- Content area -->
+<div class="content">
     <!-- Page Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h2 class="mb-1">Audit Trail</h2>
+            <h4 class="mb-1">Audit Trail</h4>
             <p class="text-muted mb-0">System activity and change logs</p>
         </div>
-        <div class="d-flex gap-2">
+        <div>
             <a href="{{ route('audit-logs.statistics') }}" class="btn btn-primary">
-                <i class="ph-chart-line me-1"></i> Statistics
+                <i class="ph-chart-line me-2"></i>Statistics
             </a>
         </div>
     </div>

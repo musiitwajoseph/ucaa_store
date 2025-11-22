@@ -27,6 +27,92 @@
                             <i class="ph-user-circle" style="font-size: 64px; opacity: 0.3;"></i>
                         </div>
                     </div>
+
+                    @php
+                        $dashboardHolidays = \App\Models\PublicHoliday::forDashboard()->limit(3)->get();
+                    @endphp
+
+                    @if($dashboardHolidays->isNotEmpty())
+                    <div class="mt-4 pt-3 border-top border-white border-opacity-25">
+                        <h6 class="text-white mb-3">
+                            <i class="ph-calendar-check me-2"></i>Upcoming Holidays
+                        </h6>
+                        <div class="row g-3">
+                            @foreach($dashboardHolidays as $holiday)
+                            @php
+                                // Set beautiful gradient colors based on holiday type
+                                $cardStyles = [
+                                    'public' => 'background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);',
+                                    'religious' => 'background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); box-shadow: 0 4px 15px rgba(240, 147, 251, 0.4);',
+                                    'internal' => 'background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);'
+                                ];
+                                $cardStyle = $cardStyles[$holiday->type] ?? 'background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);';
+                                
+                                $typeIcons = [
+                                    'public' => 'ph-flag',
+                                    'religious' => 'ph-star',
+                                    'internal' => 'ph-buildings'
+                                ];
+                                $icon = $typeIcons[$holiday->type] ?? 'ph-calendar';
+                            @endphp
+                            <div class="col-md-4">
+                                <div class="rounded-3 p-3 position-relative overflow-hidden" style="{{ $cardStyle }} transition: all 0.3s ease;">
+                                    <!-- Decorative pattern -->
+                                    <div class="position-absolute top-0 end-0 opacity-10" style="font-size: 100px; margin-top: -20px; margin-right: -20px;">
+                                        <i class="{{ $icon }}"></i>
+                                    </div>
+                                    
+                                    <div class="d-flex align-items-start position-relative">
+                                        <div class="flex-shrink-0">
+                                            @php
+                                                $daysUntil = $holiday->daysUntil();
+                                            @endphp
+                                            @if($daysUntil == 0)
+                                                <div class="bg-white rounded-3 px-3 py-2 text-center shadow-sm" style="min-width: 70px;">
+                                                    <div class="text-danger fw-bold" style="font-size: 11px; letter-spacing: 1px;">TODAY</div>
+                                                    <div class="text-dark fw-bold" style="font-size: 24px; line-height: 1;">{{ $holiday->getDisplayDate()->format('d') }}</div>
+                                                    <div class="text-muted" style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px;">{{ $holiday->getDisplayDate()->format('M') }}</div>
+                                                </div>
+                                            @else
+                                                <div class="bg-white rounded-3 px-3 py-2 text-center shadow-sm" style="min-width: 70px;">
+                                                    <div class="text-dark fw-bold" style="font-size: 28px; line-height: 1; margin-bottom: 2px;">{{ $holiday->getDisplayDate()->format('d') }}</div>
+                                                    <div class="text-muted fw-semibold" style="font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">{{ $holiday->getDisplayDate()->format('M') }}</div>
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <div class="d-flex align-items-center mb-2">
+                                                <h6 class="text-white mb-0 fw-bold" style="font-size: 15px;">{{ $holiday->name }}</h6>
+                                                <span class="badge bg-white bg-opacity-25 ms-2" style="font-size: 10px; padding: 3px 8px;">
+                                                    <i class="{{ $icon }} me-1" style="font-size: 10px;"></i>{{ ucfirst($holiday->type) }}
+                                                </span>
+                                            </div>
+                                            <p class="text-white mb-2" style="font-size: 13px; line-height: 1.5; opacity: 0.95;">
+                                                {{ Str::limit(strip_tags($holiday->getDashboardMessage()), 80) }}
+                                            </p>
+                                            <div class="d-flex align-items-center">
+                                                @if($daysUntil == 0)
+                                                    <span class="badge bg-white text-danger fw-semibold" style="font-size: 11px; padding: 4px 10px;">
+                                                        <i class="ph-check-circle me-1"></i>Today
+                                                    </span>
+                                                @elseif($daysUntil == 1)
+                                                    <span class="badge bg-white text-warning fw-semibold" style="font-size: 11px; padding: 4px 10px;">
+                                                        <i class="ph-clock me-1"></i>Tomorrow
+                                                    </span>
+                                                @else
+                                                    <span class="badge bg-white bg-opacity-25 text-white fw-normal" style="font-size: 11px; padding: 4px 10px;">
+                                                        <i class="ph-calendar-blank me-1"></i>{{ $daysUntil }} days away
+                                                    </span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -281,7 +367,14 @@
                     <div class="mb-3">
                         <div class="d-flex justify-content-between mb-2">
                             <span class="text-muted">System Version</span>
-                            <span class="fw-semibold">1.0.0</span>
+                            <span class="fw-semibold">{{ \App\Helpers\VersionHelper::formatted('full') }}</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Release Date</span>
+                            <span class="fw-semibold">{{ \Carbon\Carbon::parse(\App\Helpers\VersionHelper::releaseDate())->format('M d, Y') }}</span>
                         </div>
                     </div>
 

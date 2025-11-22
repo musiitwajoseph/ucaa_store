@@ -74,6 +74,32 @@
                 </li>
                 @endcan
 
+                <!-- System Data -->
+                @if(auth()->user()->hasPermission('master-data-categories-view') || auth()->user()->hasPermission('master-data-view'))
+                <li class="nav-item-header">
+                    <div class="text-uppercase fs-sm lh-sm opacity-75 sidebar-resize-hide text-white">System Data</div>
+                    <i class="ph-dots-three sidebar-resize-show text-white"></i>
+                </li>
+                @endif
+                
+                @can('master-data-categories-view')
+                <li class="nav-item">
+                    <a href="{{ route('master-data-categories.index') }}" class="nav-link text-white {{ request()->is('master-data-categories*') ? 'active' : '' }}" style="--nav-link-hover-bg: rgba(255,255,255,0.1);">
+                        <i class="ph-folders"></i>
+                        <span>Data Categories</span>
+                    </a>
+                </li>
+                @endcan
+                
+                @can('master-data-view')
+                <li class="nav-item">
+                    <a href="{{ route('master-data.index') }}" class="nav-link text-white {{ request()->is('master-data') || request()->is('master-data/*') && !request()->is('master-data-categories*') ? 'active' : '' }}" style="--nav-link-hover-bg: rgba(255,255,255,0.1);">
+                        <i class="ph-database"></i>
+                        <span>Master Data</span>
+                    </a>
+                </li>
+                @endcan
+
                 <!-- User Management -->
                 @if(auth()->user()->hasPermission('users-view') || auth()->user()->hasPermission('roles-view') || auth()->user()->hasPermission('permissions-view') || auth()->user()->hasPermission('modules-view'))
                 <li class="nav-item-header">
@@ -114,6 +140,23 @@
                     <a href="{{ route('modules.index') }}" class="nav-link text-white {{ request()->is('modules*') ? 'active' : '' }}" style="--nav-link-hover-bg: rgba(255,255,255,0.1);">
                         <i class="ph-package"></i>
                         <span>Modules</span>
+                    </a>
+                </li>
+                @endcan
+
+                <!-- Settings -->
+                @if(auth()->user()->hasPermission('settings-view') || auth()->user()->hasPermission('public-holidays-view'))
+                <li class="nav-item-header">
+                    <div class="text-uppercase fs-sm lh-sm opacity-75 sidebar-resize-hide text-white">Settings</div>
+                    <i class="ph-dots-three sidebar-resize-show text-white"></i>
+                </li>
+                @endif
+                
+                @can('public-holidays-view')
+                <li class="nav-item">
+                    <a href="{{ route('public-holidays.index') }}" class="nav-link text-white {{ request()->is('public-holidays*') ? 'active' : '' }}" style="--nav-link-hover-bg: rgba(255,255,255,0.1);">
+                        <i class="ph-calendar-check"></i>
+                        <span>Public Holidays</span>
                     </a>
                 </li>
                 @endcan

@@ -1,13 +1,12 @@
 @extends('layouts.master')
 
-@section('title', 'Reports & Analytics')
-
 @section('content')
-<div class="container-fluid mt-4">
+<!-- Content area -->
+<div class="content">
     <!-- Page Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h2 class="mb-1">Reports & Analytics</h2>
+            <h4 class="mb-1">Reports & Analytics</h4>
             <p class="text-muted mb-0">View and export system reports</p>
         </div>
     </div>

@@ -4,6 +4,16 @@
         <span>&copy; {{date('Y')}} <a href="https://flaxem.com" target="_blank">Flaxem Systems</a></span>
 
         <ul class="nav">
+            @if(\App\Helpers\VersionHelper::showInFooter())
+            <li class="nav-item">
+                <a href="{{ route('version.info') }}" class="navbar-nav-link navbar-nav-link-icon rounded" title="View version information">
+                    <div class="d-flex align-items-center mx-md-1">
+                        <i class="ph-info"></i>
+                        <span class="d-none d-md-inline-block ms-2">{{ \App\Helpers\VersionHelper::formatted('full') }}</span>
+                    </div>
+                </a>
+            </li>
+            @endif
             <li class="nav-item">
                 <a href="{{ route('support.public') }}" class="navbar-nav-link navbar-nav-link-icon rounded">
                     <div class="d-flex align-items-center mx-md-1">

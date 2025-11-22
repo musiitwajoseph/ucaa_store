@@ -137,6 +137,12 @@ class PermissionsSeeder extends Seeder
             ['code' => 'settings-view', 'name' => 'View Settings', 'description' => 'View system settings', 'module_code' => 'MOD-001', 'category' => 'Settings', 'display_order' => 60],
             ['code' => 'settings-edit', 'name' => 'Edit Settings', 'description' => 'Modify system settings', 'module_code' => 'MOD-001', 'category' => 'Settings', 'display_order' => 61],
 
+            // Public Holidays
+            ['code' => 'public-holidays-view', 'name' => 'View Public Holidays', 'description' => 'View public holidays list and details', 'module_code' => 'MOD-001', 'category' => 'Public Holidays', 'display_order' => 62],
+            ['code' => 'public-holidays-create', 'name' => 'Create Public Holidays', 'description' => 'Create new public holidays', 'module_code' => 'MOD-001', 'category' => 'Public Holidays', 'display_order' => 63],
+            ['code' => 'public-holidays-edit', 'name' => 'Edit Public Holidays', 'description' => 'Edit existing public holidays', 'module_code' => 'MOD-001', 'category' => 'Public Holidays', 'display_order' => 64],
+            ['code' => 'public-holidays-delete', 'name' => 'Delete Public Holidays', 'description' => 'Delete public holidays', 'module_code' => 'MOD-001', 'category' => 'Public Holidays', 'display_order' => 65],
+
             // ============================================
             // Store Management Module (MOD-002)
             // ============================================
@@ -183,6 +189,18 @@ class PermissionsSeeder extends Seeder
             ['code' => 'office-locations-create', 'name' => 'Create Office Locations', 'description' => 'Create new office locations', 'module_code' => 'MOD-003', 'category' => 'Office Locations', 'display_order' => 121],
             ['code' => 'office-locations-edit', 'name' => 'Edit Office Locations', 'description' => 'Edit office locations', 'module_code' => 'MOD-003', 'category' => 'Office Locations', 'display_order' => 122],
             ['code' => 'office-locations-delete', 'name' => 'Delete Office Locations', 'description' => 'Delete office locations', 'module_code' => 'MOD-003', 'category' => 'Office Locations', 'display_order' => 123],
+
+            // Master Data
+            ['code' => 'master-data-view', 'name' => 'View Master Data', 'description' => 'View master data list and details', 'module_code' => 'MOD-001', 'category' => 'Master Data', 'display_order' => 124],
+            ['code' => 'master-data-create', 'name' => 'Create Master Data', 'description' => 'Create new master data items', 'module_code' => 'MOD-001', 'category' => 'Master Data', 'display_order' => 125],
+            ['code' => 'master-data-edit', 'name' => 'Edit Master Data', 'description' => 'Edit master data items', 'module_code' => 'MOD-001', 'category' => 'Master Data', 'display_order' => 126],
+            ['code' => 'master-data-delete', 'name' => 'Delete Master Data', 'description' => 'Delete master data items', 'module_code' => 'MOD-001', 'category' => 'Master Data', 'display_order' => 127],
+
+            // Master Data Categories
+            ['code' => 'master-data-categories-view', 'name' => 'View Master Data Categories', 'description' => 'View master data category list and details', 'module_code' => 'MOD-001', 'category' => 'Master Data', 'display_order' => 128],
+            ['code' => 'master-data-categories-create', 'name' => 'Create Master Data Categories', 'description' => 'Create new master data categories', 'module_code' => 'MOD-001', 'category' => 'Master Data', 'display_order' => 129],
+            ['code' => 'master-data-categories-edit', 'name' => 'Edit Master Data Categories', 'description' => 'Edit master data categories', 'module_code' => 'MOD-001', 'category' => 'Master Data', 'display_order' => 130],
+            ['code' => 'master-data-categories-delete', 'name' => 'Delete Master Data Categories', 'description' => 'Delete master data categories', 'module_code' => 'MOD-001', 'category' => 'Master Data', 'display_order' => 131],
 
             // ============================================
             // Reports & Analytics Module (MOD-004)
